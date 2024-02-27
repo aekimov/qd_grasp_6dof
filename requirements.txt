@@ -1,0 +1,14 @@
+qibullet
+seaborn
+pyquaternion
+pyyaml
+scikit-learn
+imageio
+tqdm
+astropy
+transforms3d
+open3d
+pyquaternion
+ribs
+cmaes
+pybullet==3.2.6

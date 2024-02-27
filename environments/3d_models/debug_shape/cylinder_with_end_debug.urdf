@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<robot name="cylinder">
+  <link name="base_link">
+    <visual>
+    <origin rpy="0 0 0" xyz="0 0 -0.25"/>
+      <geometry>
+        <sphere radius="0.07"/>
+      </geometry>
+    <material name="transparent"/>
+    </visual>
+    <collision>
+    <origin rpy="0 0 0" xyz="0 0 -0.25"/>
+      <geometry>
+        <sphere radius="0.07"/>
+      </geometry>
+    </collision>
+    <inertial>
+        <origin rpy="0 0 0" xyz="0 0 -0.25"/>
+        <mass value="0.12446312404985821" />
+        <inertia ixx="4.264458592856439e-08" ixy="2.3664636997775608e-11" ixz="-1.546430083033937e-09"
+                 iyy="4.308434303432817e-08" iyz="1.188377331358044e-09" izz="1.5503709926958875e-08" />
+    </inertial>
+
+
+  </link>
+
+
+</robot>

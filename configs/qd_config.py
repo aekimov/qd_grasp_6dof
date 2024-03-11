@@ -138,12 +138,18 @@ class SupportedMethod(Enum):
     APPROACH_ME_SCS_CPF = 4
     ANTIPODAL_ME_SCS_CPF = 5
     ME_SCS_CONTACT_CPF = 6
+    ME_SCS = 7
 
-    APPROACH_ME_RAND_CPF = 7
-    ME_RAND_CONTACT_CPF = 8
+    APPROACH_ME_RAND_CPF = 8
+    ME_RAND_CONTACT_CPF = 9
+    ME_RAND = 10
 
-    APPROACH_CMA_MAE_CPF = 9
-    CMA_MAE_CONTACT_CPF = 10
+    APPROACH_CMA_MAE_CPF = 11
+    CMA_MAE_CONTACT_CPF = 12
+    CMA_MAE = 13
+
+
+
 
 
 # -------------------------------------------------------------------------------------------------------------------- #
@@ -164,6 +170,7 @@ class SearchSpaceRepresentation(Enum):
     ANTIPODAL_STRATEGY_CONTACT_POINT_FINDER = 2
     RANDOM_SAMPLE_CONTACT_STRATEGY_LIST = 3
     CONTACT_STRATEGY_CONTACT_POINT_FINDER = 4
+    SPHERICAL = 5
 
 
 ########################################################################################################################
@@ -175,17 +182,20 @@ class SearchSpaceRepresentation(Enum):
 ALGO_ARG_TO_METHOD = {
     'approach_rand_sample': SupportedMethod.APPROACH_RAND_SAMPLE_CPF,
     'antipodal_rand_sample': SupportedMethod.ANTIPODAL_RAND_SAMPLE_CPF,
-    'rand_sample_contact_list': SupportedMethod.RAND_SAMPLE_CONTACT_LIST,
+    'contact_rand_sample': SupportedMethod.RAND_SAMPLE_CONTACT_LIST,
 
     'approach_me_scs': SupportedMethod.APPROACH_ME_SCS_CPF,
     'antipodal_me_scs': SupportedMethod.ANTIPODAL_ME_SCS_CPF,
-    'me_scs_contact': SupportedMethod.ME_SCS_CONTACT_CPF,
+    'contact_me_scs': SupportedMethod.ME_SCS_CONTACT_CPF,
+    'me_scs': SupportedMethod.ME_SCS,
 
     'approach_me_rand': SupportedMethod.APPROACH_ME_RAND_CPF,
-    'me_rand_contact': SupportedMethod.ME_RAND_CONTACT_CPF,
+    'contact_me_rand': SupportedMethod.ME_RAND_CONTACT_CPF,
+    'me_rand': SupportedMethod.ME_RAND,
 
     'approach_cma_mae': SupportedMethod.APPROACH_CMA_MAE_CPF,
-    'cma_mae_contact': SupportedMethod.CMA_MAE_CONTACT_CPF,
+    'contact_cma_mae': SupportedMethod.CMA_MAE_CONTACT_CPF,
+    'cma_mae': SupportedMethod.CMA_MAE,
 }
 
 
@@ -264,6 +274,18 @@ QD_METHODS_CONFIGS = {
         'search_representation': SearchSpaceRepresentation.CONTACT_STRATEGY_CONTACT_POINT_FINDER,
         'genotype_len': GENOTYPE_LEN_CONTACT_POINT_FINDER_CPF + GENOTYPE_LEN_6DOF_POSE_RELATIVE_TO_CONTACT_POINT,
     },
+    SupportedMethod.ME_SCS:{
+        'archive_type': ArchiveType.ELITE_STRUCTURED,
+        'fill_archive_strat': FillArchiveStrategy.STRUCTURED_ELITES,
+        'mutation_strat': MutationStrategy.GAUSS,
+        'select_off_strat': SelectOffspringStrategy.SUCCESS_BASED_FROM_STRUCTURED_ARCHIVE,
+        'replace_pop_strat': None,
+        'archive_limit_strat': ArchiveLimitStrategy.RANDOM,
+        'is_novelty_required': False,
+        'is_pop_based': False,
+        'genotype_len': GENOTYPE_LEN_6DOF_POSE,
+        'search_representation': SearchSpaceRepresentation.SPHERICAL,
+    },
     SupportedMethod.APPROACH_ME_RAND_CPF: {
         'archive_type': ArchiveType.ELITE_STRUCTURED,
         'fill_archive_strat': FillArchiveStrategy.STRUCTURED_ELITES,
@@ -288,6 +310,18 @@ QD_METHODS_CONFIGS = {
         'search_representation': SearchSpaceRepresentation.CONTACT_STRATEGY_CONTACT_POINT_FINDER,
         'genotype_len': GENOTYPE_LEN_CONTACT_POINT_FINDER_CPF + GENOTYPE_LEN_6DOF_POSE_RELATIVE_TO_CONTACT_POINT,
     },
+    SupportedMethod.ME_RAND: {
+        'archive_type': ArchiveType.ELITE_STRUCTURED,
+        'fill_archive_strat': FillArchiveStrategy.STRUCTURED_ELITES,
+        'mutation_strat': MutationStrategy.GAUSS,
+        'select_off_strat': SelectOffspringStrategy.RANDOM_FROM_ARCHIVE,
+        'replace_pop_strat': None,
+        'archive_limit_strat': ArchiveLimitStrategy.RANDOM,
+        'is_novelty_required': False,
+        'is_pop_based': False,
+        'genotype_len': GENOTYPE_LEN_6DOF_POSE,
+        'search_representation': SearchSpaceRepresentation.SPHERICAL,
+    },
     SupportedMethod.APPROACH_CMA_MAE_CPF: {
         'archive_type': ArchiveType.ELITE_STRUCTURED,
         'fill_archive_strat': FillArchiveStrategy.STRUCTURED_ELITES,
@@ -311,6 +345,18 @@ QD_METHODS_CONFIGS = {
         'is_pop_based': False,
         'search_representation': SearchSpaceRepresentation.CONTACT_STRATEGY_CONTACT_POINT_FINDER,
         'genotype_len': GENOTYPE_LEN_CONTACT_POINT_FINDER_CPF + GENOTYPE_LEN_6DOF_POSE_RELATIVE_TO_CONTACT_POINT,
+    },
+    SupportedMethod.CMA_MAE: {
+        'archive_type': ArchiveType.ELITE_STRUCTURED,
+        'fill_archive_strat': FillArchiveStrategy.STRUCTURED_ELITES,
+        'mutation_strat': MutationStrategy.GAUSS,
+        'select_off_strat': SelectOffspringStrategy.SUCCESS_BASED_FROM_STRUCTURED_ARCHIVE,
+        'replace_pop_strat': None,
+        'archive_limit_strat': ArchiveLimitStrategy.RANDOM,
+        'is_novelty_required': False,
+        'is_pop_based': False,
+        'genotype_len': GENOTYPE_LEN_6DOF_POSE,
+        'search_representation': SearchSpaceRepresentation.SPHERICAL,
     },
 }
 
@@ -338,7 +384,9 @@ ANTIPODAL_BASED_ALGORITHMS = [
 # Pyribs qd methods
 CMA_ME_QD_METHODS = []
 CMA_ES_QD_METHODS = []
-CMA_MAE_QD_METHODS = [SupportedMethod.APPROACH_CMA_MAE_CPF, SupportedMethod.CMA_MAE_CONTACT_CPF]
+CMA_MAE_QD_METHODS = [
+    SupportedMethod.APPROACH_CMA_MAE_CPF, SupportedMethod.CMA_MAE_CONTACT_CPF, SupportedMethod.CMA_MAE
+]
 
 PYRIBS_QD_METHODS = CMA_ME_QD_METHODS + CMA_ES_QD_METHODS + CMA_MAE_QD_METHODS
 

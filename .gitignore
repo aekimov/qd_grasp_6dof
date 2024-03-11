@@ -1,0 +1,11 @@
+qdg
+__pycache__/
+*.py[cod]
+*.egg-info
+runs/
+tmp/
+.idea
+
+
+
+

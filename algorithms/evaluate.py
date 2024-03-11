@@ -237,6 +237,10 @@ def cvt_genome_to_6dof_pose(individual, env, eval_kwargs):
         gripper_6dof_pose = cvt_gen_6dof.cvt_genome_to_6dof_pose_contact_strategy_search(
             robot_grasp_env=env, genome=individual, robot=robot
         )
+    elif search_representation == qd_cfg.SearchSpaceRepresentation.SPHERICAL:
+        gripper_6dof_pose = cvt_gen_6dof.cvt_genome_to_6dof_pose_spherical(
+            robot_grasp_env=env, genome=individual
+        )
     else:
         raise NotImplementedError('error in search representation type')
 

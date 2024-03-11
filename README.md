@@ -6,7 +6,7 @@
 ## About
 This code allows the generation of repertoires of diverse and high-performing 6DoF grasp poses with Quality-Diversity methods.
 
-It allows to replicate results from: *Speeding up 6-DoF Grasp Sampling with Quality-Diversity, Huber, J., Hélénon, F., Kappel, M., Chelly, E., Ben Amar, F., Doncieux, S. (2024)* (draft version: soon)
+Associated paper: *Speeding up 6-DoF Grasp Sampling with Quality-Diversity, Huber, J., Hélénon, F., Kappel, M., Chelly, E., Ben Amar, F., Doncieux, S. (2024)* (draft version: soon)
 
 Visit the **project webpage** for more details: [https://qdgrasp.github.io/](https://qdgrasp.github.io/)
 
@@ -56,17 +56,17 @@ Then run one of the following examples:
 
 Display mode, to visualize each evaluation in a sequential run: 
 ```
-python run_qd_grasp.py -a me_scs_contact -r panda_2f -nbr 2000 -o ycb_mug -d
+python run_qd_grasp.py -a contact_me_scs -r panda_2f -nbr 2000 -o ycb_mug -d
 ```
 
 Longer run with parallelization:
 ```
-python run_qd_grasp.py -a me_scs_contact -r panda_2f -nbr 20000 -o ycb_mug -ll
+python run_qd_grasp.py -a contact_me_scs -r panda_2f -nbr 20000 -o ycb_mug -ll
 ```
 
 With Domain-Randomization:
 ```
-python run_qd_grasp.py -a me_scs_contact -r panda_2f -nbr 50000 -o ycb_mug -ll -drf
+python run_qd_grasp.py -a contact_me_scs -r panda_2f -nbr 50000 -o ycb_mug -ll -drf
 ```
 
 

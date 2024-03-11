@@ -3,6 +3,12 @@
 
 # Quality Diversity for Generating 6DoF Grasps in Robotics (QD-Grasp-6DoF)
 
+![](assets/panda_cracker_low_qual.gif)![](assets/barrett_spatula_low_qual.gif)
+
+![](assets/allegro_cube_low_qual.gif)![](assets/shadow_tennis_low_qual.gif)
+
+![](assets/exp_réelles_allegro_pd_1_low_qual.gif) ![](assets/exp_réelles_allegro_pd_2_low_qual.gif)
+
 ## About
 This code allows the generation of repertoires of diverse and high-performing 6DoF grasp poses with Quality-Diversity methods.
 

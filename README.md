@@ -12,7 +12,7 @@
 ## About
 This code allows the generation of repertoires of diverse and high-performing 6DoF grasp poses with Quality-Diversity methods.
 
-Associated paper: *Speeding up 6-DoF Grasp Sampling with Quality-Diversity, Huber, J., Hélénon, F., Kappel, M., Chelly, E., Ben Amar, F., Doncieux, S. (2024)* (draft version: soon)
+Associated paper: *Speeding up 6-DoF Grasp Sampling with Quality-Diversity, Huber, J., Hélénon, F., Kappel, M., Chelly, E., Ben Amar, F., Doncieux, S. (2024), IROS 2024* ([draft version](https://arxiv.org/abs/2403.06173))
 
 Visit the **project webpage** for more details: [https://qdgrasp.github.io/](https://qdgrasp.github.io/)
 

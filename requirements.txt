@@ -12,3 +12,4 @@ pyquaternion
 ribs
 cmaes
 pybullet==3.2.6
+numpy==1.26.4

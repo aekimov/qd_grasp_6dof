@@ -16,6 +16,7 @@ from environments.src.robots.panda_2f_grasping import FrankaEmikaPanda2Fingers
 from environments.src.robots.allegro_hand_grasping import AllegroHand
 from environments.src.robots.barrett_hand_280_grasping import BarrettHand280
 from environments.src.robots.shadow_hand_grasping import ShadowHand
+from environments.src.robots.robotiq_2f_grasping import Robotiq2Fingers
 
 
 def get_genotype_len(cfg):
@@ -277,6 +278,8 @@ def get_eval_kwargs(
 def get_env_class(robot_name):
     if robot_name == env_consts.SimulatedRobot.PANDA_2_FINGERS:
         return FrankaEmikaPanda2Fingers
+    elif robot_name == env_consts.SimulatedRobot.ROBOTIQ_2_FINGERS:
+        return Robotiq2Fingers
     elif robot_name == env_consts.SimulatedRobot.ALLEGRO_HAND:
         return AllegroHand
     elif robot_name == env_consts.SimulatedRobot.BARRETT_HAND_280:

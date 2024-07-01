@@ -12,6 +12,7 @@ SimulatedRobot = Enum(
     'SimulatedRobot',
     [
         'PANDA_2_FINGERS',
+        'ROBOTIQ_2_FINGERS',
         'ALLEGRO_HAND',
         'BARRETT_HAND_280',
         'SHADOW_HAND'
@@ -20,6 +21,7 @@ SimulatedRobot = Enum(
 
 INPUT_ARG_ROBOT2ROBOT_TYPE_NAME = {
     'panda_2f': SimulatedRobot.PANDA_2_FINGERS,
+    'robotiq_2f': SimulatedRobot.ROBOTIQ_2_FINGERS,
     'allegro': SimulatedRobot.ALLEGRO_HAND,
     'bh280': SimulatedRobot.BARRETT_HAND_280,
     'shadow': SimulatedRobot.SHADOW_HAND,

@@ -15,6 +15,13 @@ ENV_EVAL_CONFIGS = {
         'with_init_joint_state_in_genome': False,
         'n_init_joint_states': None,
     },
+    env_consts.SimulatedRobot.ROBOTIQ_2_FINGERS: {
+        'with_synergy': False,
+        'n_synergies': None,
+
+        'with_init_joint_state_in_genome': False,
+        'n_init_joint_states': None,
+    },
     env_consts.SimulatedRobot.ALLEGRO_HAND: {
         'with_synergy': True,
         'n_synergies': 4,

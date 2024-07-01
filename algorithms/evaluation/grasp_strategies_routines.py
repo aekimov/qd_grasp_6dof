@@ -551,6 +551,10 @@ def set_prehensor_from_quaternion_pose_orientation(
         q_alignment_wxyz = q_alignment_wxyz * q_rot2_wxyz
         rot_axis = [1, 0, 0]
 
+    elif robot == env_consts.SimulatedRobot.ROBOTIQ_2_FINGERS:
+        q_alignment_wxyz = q_alignment_wxyz
+        rot_axis = [0, 0, 1]
+
     elif robot == env_consts.SimulatedRobot.PANDA_2_FINGERS:
         q_rot_wxyz = Quaternion(axis=[0, 0, 1], angle=-np.pi / 2)
         q_alignment_wxyz = q_alignment_wxyz * q_rot_wxyz

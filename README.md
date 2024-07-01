@@ -20,6 +20,7 @@ Visit the **project webpage** for more details: [https://qdgrasp.github.io/](htt
 ### Supported platforms
 
 * Franka Emika Panda Gripper (*panda_2f*)
+* Robotiq Gripper 85 (*robotiq_2f*)
 * Barrett Hand 280 (*bh280*) 
 * Allegro Hand (*allegro*)
 * Shadow Hand (*shadow*)

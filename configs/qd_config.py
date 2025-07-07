@@ -49,7 +49,7 @@ OFFSPRING_NB_COEFF = 1.  # number of offsprings generated (coeff of pop length)
 # ARCHIVE
 # -------------------------------------------------------------------------------------------------------------------- #
 
-ARCHIVE_LIMIT_SIZE = 25000
+ARCHIVE_LIMIT_SIZE = 100000
 ARCHIVE_DECREMENTAL_RATIO = 0.9  # if archive size is bigger than thresh, cut down archive by this ratio
 
 

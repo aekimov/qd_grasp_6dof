@@ -11,7 +11,7 @@ RETURN_FAILURE_CODE = 1
 # RUN TIME LIMIT
 # -------------------------------------------------------------------------------------------------------------------- #
 
-MAX_RUN_TIME_IN_M = 0 + 35  # 0H50
+MAX_RUN_TIME_IN_M = 0 + 70  # 0H50
 
 MAX_RUN_TIME_IN_S = MAX_RUN_TIME_IN_M * 60
 

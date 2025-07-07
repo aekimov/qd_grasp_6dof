@@ -2,6 +2,8 @@
 import evolutionary_process
 import sys
 from multiprocessing import Pool
+import multiprocessing
+multiprocessing.set_start_method('fork')  # Only works on Unix systems
 
 from utils.args_processor import get_qd_algo_args, get_input_arguments
 from utils.common_tools import get_new_run_name

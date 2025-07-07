@@ -72,11 +72,15 @@ LIST_ID_GRIPPER_FINGERS_ACTUATORS_THUMB_FOR_OPPOSITE = [29, 31, 32, 33]
 LIST_ID_GRIPPER_FINGERS_ACTUATORS_THUMB_FOR_PALM_GRASP = [29, 30, 31, 32, 33]
 LIST_ID_GRIPPER_FINGERS_ACTUATORS_THUMB = LIST_ID_GRIPPER_FINGERS_ACTUATORS_THUMB_FOR_PALM_GRASP
 
+# Adduction/Abduction joints (J4 joints)
+LIST_ID_GRIPPER_FINGERS_ACTUATORS_ADDUCTION = [9, 14, 19, 25]  # FFJ4, MFJ4, RFJ4, LFJ4
+
 LIST_ID_GRIPPER_FINGERS_ACTUATORS = LIST_ID_GRIPPER_FINGERS_ACTUATORS_INDEX + \
                                     LIST_ID_GRIPPER_FINGERS_ACTUATORS_MID + \
                                     LIST_ID_GRIPPER_FINGERS_ACTUATORS_RING + \
                                     LIST_ID_GRIPPER_FINGERS_ACTUATORS_LAST + \
                                     LIST_ID_GRIPPER_FINGERS_ACTUATORS_THUMB
+                                    # LIST_ID_GRIPPER_FINGERS_ACTUATORS_ADDUCTION # Add adduction/abduction joints
 
 GRIPPER_PARAMETERS = {
     'max_n_step_close_grip': 100,
@@ -182,6 +186,19 @@ RFMIDLE_RFDISTAL_ROTATION_INIT_VALUE = 0
 J_ID_RFDISTAL_RFTIP_ROTATION = 23  # RFtip
 RFDISTAL_RFTIP_ROTATION_INIT_VALUE = 0
 
+# Add initial values for adduction/abduction joints
+J_ID_PALM_FFKNUCKLE_ADDUCTION = 9  # FFJ4
+PALM_FFKNUCKLE_ADDUCTION_INIT_VALUE = 0 #-0.3
+
+J_ID_PALM_MFKNUCKLE_ADDUCTION = 14  # MFJ4
+PALM_MFKNUCKLE_ADDUCTION_INIT_VALUE = 0 #-0.15
+
+J_ID_PALM_RFKNUCKLE_ADDUCTION = 19  # RFJ4
+PALM_RFKNUCKLE_ADDUCTION_INIT_VALUE = 0 #-0.15
+
+J_ID_PALM_LFKNUCKLE_ADDUCTION = 25  # LFJ4
+PALM_LFKNUCKLE_ADDUCTION_INIT_VALUE = 0 #-0.3
+
 DEFAULT_JOINT_STATES = {
 
     # Basis
@@ -222,6 +239,12 @@ DEFAULT_JOINT_STATES = {
     J_ID_RFPROXIMAL_RFMIDDLE_ROTATION: RFPROXIMAL_RFMIDDLE_ROTATION_INIT_VALUE,
     J_ID_RFMIDLE_RFDISTAL_ROTATION: RFMIDLE_RFDISTAL_ROTATION_INIT_VALUE,
     J_ID_RFDISTAL_RFTIP_ROTATION: RFDISTAL_RFTIP_ROTATION_INIT_VALUE,
+    
+    # Adduction joints
+    J_ID_PALM_FFKNUCKLE_ADDUCTION: PALM_FFKNUCKLE_ADDUCTION_INIT_VALUE,
+    J_ID_PALM_MFKNUCKLE_ADDUCTION: PALM_MFKNUCKLE_ADDUCTION_INIT_VALUE,
+    J_ID_PALM_RFKNUCKLE_ADDUCTION: PALM_RFKNUCKLE_ADDUCTION_INIT_VALUE,
+    J_ID_PALM_LFKNUCKLE_ADDUCTION: PALM_LFKNUCKLE_ADDUCTION_INIT_VALUE,
 }
 
 # ---------------------------------------------- #
@@ -247,23 +270,82 @@ SYNERGIES_ID_TO_STR = {
 
 
 SYNERGIES_STR_TO_J_ID_GRIP_FINGERS_ACTUATED = {
-    "thumb_index": LIST_ID_GRIPPER_FINGERS_ACTUATORS_THUMB_FOR_OPPOSITE +
-                   LIST_ID_GRIPPER_FINGERS_ACTUATORS_INDEX,
+    "thumb_index": #[J_ID_PALM_FFKNUCKLE_ADDUCTION] +  # FFJ4 for index adduction
+                   LIST_ID_GRIPPER_FINGERS_ACTUATORS_INDEX +
+                #    LIST_ID_GRIPPER_FINGERS_ACTUATORS_THUMB_FOR_OPPOSITE +
+                   LIST_ID_GRIPPER_FINGERS_ACTUATORS_THUMB_FOR_PALM_GRASP,
 
-    "thumb_mid": LIST_ID_GRIPPER_FINGERS_ACTUATORS_THUMB_FOR_OPPOSITE +
+    "thumb_mid": #[J_ID_PALM_MFKNUCKLE_ADDUCTION] +  # MFJ4 for middle adduction
+                 LIST_ID_GRIPPER_FINGERS_ACTUATORS_THUMB_FOR_OPPOSITE +
                  LIST_ID_GRIPPER_FINGERS_ACTUATORS_MID,
 
-    "thumb_index_mid": LIST_ID_GRIPPER_FINGERS_ACTUATORS_THUMB_FOR_OPPOSITE +
+    "thumb_index_mid": #[J_ID_PALM_FFKNUCKLE_ADDUCTION, J_ID_PALM_MFKNUCKLE_ADDUCTION] +  # FFJ4 and MFJ4 for adduction
+                       LIST_ID_GRIPPER_FINGERS_ACTUATORS_THUMB_FOR_OPPOSITE +
                        LIST_ID_GRIPPER_FINGERS_ACTUATORS_INDEX +
                        LIST_ID_GRIPPER_FINGERS_ACTUATORS_MID,
 
-    "all": LIST_ID_GRIPPER_FINGERS_ACTUATORS_THUMB_FOR_PALM_GRASP +
-            LIST_ID_GRIPPER_FINGERS_ACTUATORS_INDEX +
-            LIST_ID_GRIPPER_FINGERS_ACTUATORS_MID +
-            LIST_ID_GRIPPER_FINGERS_ACTUATORS_RING +
-            LIST_ID_GRIPPER_FINGERS_ACTUATORS_LAST
+    "all": #LIST_ID_GRIPPER_FINGERS_ACTUATORS_ADDUCTION +  # All J4 joints
+           LIST_ID_GRIPPER_FINGERS_ACTUATORS_THUMB_FOR_PALM_GRASP +
+           LIST_ID_GRIPPER_FINGERS_ACTUATORS_INDEX +
+           LIST_ID_GRIPPER_FINGERS_ACTUATORS_MID +
+           LIST_ID_GRIPPER_FINGERS_ACTUATORS_RING +
+           LIST_ID_GRIPPER_FINGERS_ACTUATORS_LAST
 }
 
+# ---------------------------------------------- #
+#           JOINT LOCKING CONFIGURATIONS
+# ---------------------------------------------- #
+
+# Define which joints correspond to each level
+DISTAL_JOINTS = [
+    J_ID_FFMIDLE_FFDISTAL_ROTATION,     # FFJ1 - Index distal
+    J_ID_MFMIDLE_MFDISTAL_ROTATION,     # MFJ1 - Middle distal
+    J_ID_RFMIDLE_RFDISTAL_ROTATION,     # RFJ1 - Ring distal
+    J_ID_LFMIDDLE_LFDISTAL_ROTATION,    # LFJ1 - Little distal
+    J_ID_THMIDDLE_THDISTAL_ROTATION,    # THJ1 - Thumb distal
+]
+
+MIDDLE_JOINTS = [
+    J_ID_FFPROXIMAL_FFMIDDLE_ROTATION,  # FFJ2 - Index middle
+    J_ID_MFPROXIMAL_MFMIDDLE_ROTATION,  # MFJ2 - Middle middle
+    J_ID_RFPROXIMAL_RFMIDDLE_ROTATION,  # RFJ2 - Ring middle
+    J_ID_LFPROXIMAL_LFMIDDLE_ROTATION,  # LFJ2 - Little middle
+    J_ID_THHUB_THMIDDLE_ROTATION,       # THJ2 - Thumb middle
+]
+
+PROXIMAL_JOINTS = [
+    J_ID_FFNUCKLE_FFPROXIMAL_ROTATION,  # FFJ3 - Index proximal
+    J_ID_MFNUCKLE_MFPROXIMAL_ROTATION,  # MFJ3 - Middle proximal
+    J_ID_RFNUCKLE_RFPROXIMAL_ROTATION,  # RFJ3 - Ring proximal
+    J_ID_LFNUCKLE_LFPROXIMAL_ROTATION,  # LFJ3 - Little proximal
+    J_ID_THPROXIMAL_THHUB_ROTATION,     # THJ3 - Thumb proximal
+]
+
+# Function to filter actuators based on joint lock configuration
+def filter_actuators_by_joint_lock(actuator_list, joint_lock='none'):
+    """
+    Filter out locked joints from the actuator list based on joint_lock configuration.
+    
+    Args:
+        actuator_list: List of joint IDs to potentially actuate
+        joint_lock: One of 'none', 'lock_distal_only', 'lock_middle_only', 'lock_proximal_only'
+    
+    Returns:
+        Filtered list of joint IDs that should be actuated
+    """
+    if joint_lock == 'none':
+        return actuator_list
+    
+    locked_joints = []
+    if joint_lock == 'lock_distal_only':
+        locked_joints = DISTAL_JOINTS
+    elif joint_lock == 'lock_middle_only':
+        locked_joints = MIDDLE_JOINTS
+    elif joint_lock == 'lock_proximal_only':
+        locked_joints = PROXIMAL_JOINTS
+    
+    # Return only joints that are not in the locked list
+    return [j_id for j_id in actuator_list if j_id not in locked_joints]
 
 # ---------------------------------------------- #
 #                   KEY MEASURES

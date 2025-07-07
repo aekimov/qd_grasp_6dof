@@ -209,7 +209,7 @@
 
     <origin rpy="0 0 0" xyz="0.033 0 0.095" />
     <axis xyz="0 -1 0" />
-    <limit effort="100" lower="0.43633231299858238" upper="-0.43633231299858238" velocity="5.0" />
+    <limit effort="100" lower="-0.43633231299858238" upper="0.0" velocity="5.0" />
     <dynamics damping="0.001" friction="0.01"/>
   </joint>
   <link name="ffproximal">
@@ -335,7 +335,7 @@
 
     <origin rpy="0 0 0" xyz="0.011 0 0.099" />
     <axis xyz="0 -1 0" />
-    <limit effort="100" lower="0.43633231299858238" upper="-0.43633231299858238" velocity="5.0" />
+    <limit effort="100" lower="-0.43633231299858238" upper="0" velocity="5.0" />
     <dynamics damping="0.001" friction="0.01"/>
   </joint>
   <link name="mfproximal">
@@ -461,7 +461,7 @@
 
     <origin rpy="0 0 0" xyz="-0.011 0 0.095" />
     <axis xyz="0 1 0" />
-    <limit effort="100" lower="0.43633231299858238" upper="-0.43633231299858238" velocity="5.0" />
+    <limit effort="100" lower="-0.43633231299858238" upper="0.0" velocity="5.0" />
     <dynamics damping="0.001" friction="0.01"/>
   </joint>
   <link name="rfproximal">
@@ -614,7 +614,7 @@
     <child link="lfknuckle" />
     <origin rpy="0 0 0" xyz="0 0 0.06579" />
     <axis xyz="0 1 0" />
-    <limit effort="100" lower="0.43633231299858238" upper="-0.43633231299858238" velocity="5.0" />
+    <limit effort="100" lower="-0.43633231299858238" upper="0.0" velocity="5.0" />
 
   </joint>
   <link name="lfproximal">

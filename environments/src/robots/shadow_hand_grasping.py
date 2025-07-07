@@ -14,7 +14,7 @@ import configs.qd_config as qd_cfg
 
 """
     # ---------------------------------------------------------------------------------------- #
-    #                                   ALLEGRO DEXTEROUS HAND
+    #                                   SHADOW HAND
     # ---------------------------------------------------------------------------------------- #
 """
 
@@ -31,9 +31,14 @@ class ShadowHand(RobotGrasping):
 
     def __init__(self, **kwargs):
         urdf = init_urdf_shadow_hand()
+        
+        self.joint_lock = kwargs.get('joint_lock', 'none')
 
         list_id_gripper_fingers = sh_consts.LIST_ID_GRIPPER_FINGERS
-        list_id_gripper_fingers_actuated = sh_consts.LIST_ID_GRIPPER_FINGERS_ACTUATORS
+        list_id_gripper_fingers_actuated = sh_consts.filter_actuators_by_joint_lock(
+            sh_consts.LIST_ID_GRIPPER_FINGERS_ACTUATORS,
+            self.joint_lock,
+        )
 
         gripper_6dof_infos = sh_consts.GRIPPER_6DOF_INFOS
         gripper_parameters = sh_consts.GRIPPER_PARAMETERS
@@ -59,7 +64,6 @@ class ShadowHand(RobotGrasping):
             wrist_palm_offset_gripper=wrist_palm_offset_gripper,
             pose_relative_to_contact_point_d_min=pose_relative_to_contact_point_d_min,
             pose_relative_to_contact_point_d_max=pose_relative_to_contact_point_d_max,
-
             **kwargs,
         )
 
@@ -94,17 +98,21 @@ class ShadowHand(RobotGrasping):
     def _reset_robot(self):
         self._set_robot_default_state()
 
+    # def _cvt_genome2synergy_label(self, synergy_label, debug=False):
+    #     synergy_label_projected = np.round(project_from_to_value(
+    #         interval_from=qd_cfg.FIXED_INTERVAL_GENOME,
+    #         interval_to=sh_consts.FIXED_INTERVAL_SYNERGIES,
+    #         x_start=synergy_label
+    #     ))
+
+    #     synergy_str = sh_consts.SYNERGIES_ID_TO_STR[synergy_label_projected]
+    #     list_id_grip_fingers_actuated = sh_consts.SYNERGIES_STR_TO_J_ID_GRIP_FINGERS_ACTUATED[synergy_str]
+
+    #     return list_id_grip_fingers_actuated
+
     def _cvt_genome2synergy_label(self, synergy_label, debug=False):
-        synergy_label_projected = np.round(project_from_to_value(
-            interval_from=qd_cfg.FIXED_INTERVAL_GENOME,
-            interval_to=sh_consts.FIXED_INTERVAL_SYNERGIES,
-            x_start=synergy_label
-        ))
-
-        synergy_str = sh_consts.SYNERGIES_ID_TO_STR[synergy_label_projected]
-        list_id_grip_fingers_actuated = sh_consts.SYNERGIES_STR_TO_J_ID_GRIP_FINGERS_ACTUATED[synergy_str]
-
-        return list_id_grip_fingers_actuated
-
+        actuated = sh_consts.LIST_ID_GRIPPER_FINGERS_ACTUATORS
+        return sh_consts.filter_actuators_by_joint_lock(actuated, self.joint_lock)
+    
     def _cvt_genome2init_joint_states(self, init_joint_state_genes):
         raise NotImplementedError('Undefined _cvt_genome2init_joint_states for the current gripper.')

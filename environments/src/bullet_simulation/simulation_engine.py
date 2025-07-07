@@ -283,10 +283,13 @@ class SimulationEngine:
         )
 
     def are_fingers_touching_object(self, bullet_client):
+        if self.obj_id is None:
+            return False
 
         for finger_id in self._list_id_gripper_fingers:
             contact_pts = bullet_client.getContactPoints(
                 bodyA=self.robot_id,
+                bodyB=self.obj_id,
                 linkIndexA=finger_id
             )
             if self.is_there_contacts(contact_pts):
@@ -297,7 +300,7 @@ class SimulationEngine:
         return self.are_fingers_touching_object(bullet_client=bullet_client)
 
     def is_there_contacts(self, contacts):
-        return len(contacts) != 0
+        return contacts is not None and len(contacts) != 0
 
     def is_grasping(self, bullet_client):
         contacts = bullet_client.getContactPoints(self._robot_id)

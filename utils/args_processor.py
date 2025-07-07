@@ -116,6 +116,15 @@ def parse_input_args():
     parser.add_argument("-drf", "--domain-randomization-fitness",
                         action="store_true",
                         help="Trigger DR-mixture fitness.")
+    
+    parser.add_argument("-jl", "--joint_lock",
+                        type=arg_clean_str,
+                        default="none",
+                        choices=["none", "lock_distal_only", "lock_middle_only", "lock_proximal_only"],
+                        help="Select which finger joints to lock. \
+                              lock_distal_only locks J3 (fingertips) of every digit; \
+                              lock_middle_only locks J2; \
+                              lock_proximal_only locks J1. 'none' = all joints active.")
 
     return parser.parse_args()
 
@@ -270,7 +279,7 @@ def get_eval_kwargs(
         'with_init_joint_state_in_genome': with_init_joint_state_in_genome,
         'n_init_joint_states': n_init_joint_states,
         'robot': robot,
-        'domain_randomization_fitness': domain_randomization_fitness,
+        'domain_randomization_fitness': domain_randomization_fitness
     }
     return eval_kwargs
 
@@ -290,11 +299,12 @@ def get_env_class(robot_name):
         raise NotImplementedError
 
 
-def get_env_kwargs(object_name, display, debug):
+def get_env_kwargs(object_name, display, debug, joint_lock='none'):
     env_kwargs = {
         'object_name': object_name,
         'display': display,
         'debug': debug,
+        'joint_lock': joint_lock,
     }
     return env_kwargs
 
@@ -316,7 +326,8 @@ def get_parsed_input_arguments():
         'n_budget_rollouts': args.n_budget_rollout,
         'include_invalid_inds': args.include_invalids,
         'domain_randomization_fitness': args.domain_randomization_fitness,
-        'debug': args.debug
+        'debug': args.debug,
+        'joint_lock': args.joint_lock,
     }
 
     return parsed_input_args
@@ -366,11 +377,12 @@ def process_input_arguments(parsed_input_args):
     processed_input_args['with_synergy'] = env_eval_cfg['with_synergy']
     processed_input_args['with_init_joint_state_in_genome'] = env_eval_cfg['with_init_joint_state_in_genome']
     processed_input_args['n_init_joint_states'] = env_eval_cfg['n_init_joint_states']
-
+    processed_input_args['joint_lock'] = parsed_input_args['joint_lock']
     processed_input_args['env_kwargs'] = get_env_kwargs(
         object_name=processed_input_args['object'],
         display=processed_input_args['display'],
-        debug=processed_input_args['debug']
+        debug=processed_input_args['debug'],
+        joint_lock=processed_input_args['joint_lock']
     )
     processed_input_args['env_class'] = get_env_class(robot_name=processed_input_args['robot'])
     processed_input_args['eval_kwargs'] = get_eval_kwargs(

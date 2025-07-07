@@ -273,6 +273,13 @@ class RobotGrasping:
 
             # Close fingers
             for i_finger_joint in list_id_grip_fingers_actuated:
+                # joint_info = fingers_joint_infos[i_finger_joint]
+            
+                # if joint_info['low_lim'] < joint_info['up_lim']:
+                #     target = joint_info['low_lim']  # Normal case
+                # else:
+                #     target = joint_info['up_lim']  # Reversed limits case
+                
                 self._bullet_client.setJointMotorControl2(
                     bodyIndex=robot_id,
                     jointIndex=i_finger_joint,

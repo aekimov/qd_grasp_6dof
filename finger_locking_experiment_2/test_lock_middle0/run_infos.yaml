@@ -1,0 +1,23 @@
+Number of triggered outcome cells (outcome_archive len, out of 226981): 10079
+Number of successful individuals (outcome_archive get_n_successful_cells): 281
+Number of evaluations (progression_monitoring.n_eval): 20500
+Number of evaluations including invalid individuals (progression_monitoring.n_eval_including_invalid): 41000
+elapsed_time:
+  run_qd: 9 minutes
+Number of computed generations (gen): 40
+first_saved_ind_gen: null
+first_saved_ind_n_evals: null
+outcome_archive_dims:
+  max_x: 0.3167843660712243
+  max_y: 0.26426386464387186
+  max_z: 0.3419698660954601
+  min_x: -0.3003063658624888
+  min_y: -0.35282686728984125
+  min_z: -0.275120865838253
+  n_bins_x: 61.0
+  n_bins_y: 61.0
+  n_bins_z: 61.0
+  len_bin_x: 0.010116241507110052
+  len_bin_y: 0.010116241507110052
+  len_bin_z: 0.010116241507110052
+is running timeout: false

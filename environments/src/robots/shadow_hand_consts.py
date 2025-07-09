@@ -321,14 +321,52 @@ PROXIMAL_JOINTS = [
     J_ID_THPROXIMAL_THHUB_ROTATION,     # THJ3 - Thumb proximal
 ]
 
+# All joints for each finger
+INDEX_FINGER_JOINTS = [
+    J_ID_PALM_FFNUCKLE_ROTATION,        # FFJ4 - Index abduction
+    J_ID_FFNUCKLE_FFPROXIMAL_ROTATION,  # FFJ3 - Index proximal
+    J_ID_FFPROXIMAL_FFMIDDLE_ROTATION,  # FFJ2 - Index middle
+    J_ID_FFMIDLE_FFDISTAL_ROTATION,     # FFJ1 - Index distal
+]
+
+MIDDLE_FINGER_JOINTS = [
+    J_ID_PALM_MFNUCKLE_ROTATION,         # MFJ4 - Middle abduction
+    J_ID_MFNUCKLE_MFPROXIMAL_ROTATION,  # MFJ3 - Middle proximal
+    J_ID_MFPROXIMAL_MFMIDDLE_ROTATION,  # MFJ2 - Middle middle
+    J_ID_MFMIDLE_MFDISTAL_ROTATION,     # MFJ1 - Middle distal
+]
+
+RING_FINGER_JOINTS = [
+    J_ID_PALM_RFNUCKLE_ROTATION,         # RFJ4 - Ring abduction
+    J_ID_RFNUCKLE_RFPROXIMAL_ROTATION,  # RFJ3 - Ring proximal
+    J_ID_RFPROXIMAL_RFMIDDLE_ROTATION,  # RFJ2 - Ring middle
+    J_ID_RFMIDLE_RFDISTAL_ROTATION,     # RFJ1 - Ring distal
+]
+
+LITTLE_FINGER_JOINTS = [
+    J_ID_PALM_LFMETACARPAL_ROTATION,     # LFJ5 - Little metacarpal
+    J_ID_LFMETACARPAL_LFNUCKLE_ROTATION,# LFJ4 - Little abduction
+    J_ID_LFNUCKLE_LFPROXIMAL_ROTATION,  # LFJ3 - Little proximal
+    J_ID_LFPROXIMAL_LFMIDDLE_ROTATION,  # LFJ2 - Little middle
+    J_ID_LFMIDDLE_LFDISTAL_ROTATION,    # LFJ1 - Little distal
+]
+
+THUMB_JOINTS = [
+    J_ID_PALM_THBASE_ROTATION,           # THJ5 - Thumb base
+    J_ID_THBASE_THPROXIMAL_ROTATION,     # THJ4 - Thumb proximal rotation
+    J_ID_THPROXIMAL_THHUB_ROTATION,      # THJ3 - Thumb hub
+    J_ID_THHUB_THMIDDLE_ROTATION,        # THJ2 - Thumb middle
+    J_ID_THMIDDLE_THDISTAL_ROTATION,     # THJ1 - Thumb distal
+]
+
 # Function to filter actuators based on joint lock configuration
 def filter_actuators_by_joint_lock(actuator_list, joint_lock='none'):
     """
-    Filter out locked joints from the actuator list based on joint_lock configuration.
+    Filter out locked joints from the actuator list based on joint lock configuration.
     
     Args:
         actuator_list: List of joint IDs to potentially actuate
-        joint_lock: One of 'none', 'lock_distal_only', 'lock_middle_only', 'lock_proximal_only'
+        joint_lock: Configuration name for locking
     
     Returns:
         Filtered list of joint IDs that should be actuated
@@ -337,12 +375,36 @@ def filter_actuators_by_joint_lock(actuator_list, joint_lock='none'):
         return actuator_list
     
     locked_joints = []
+    
+    # Original joint level locking
     if joint_lock == 'lock_distal_only':
         locked_joints = DISTAL_JOINTS
     elif joint_lock == 'lock_middle_only':
         locked_joints = MIDDLE_JOINTS
     elif joint_lock == 'lock_proximal_only':
         locked_joints = PROXIMAL_JOINTS
+    
+    # Finger locking configurations
+    elif joint_lock == 'lock_index':
+        locked_joints = INDEX_FINGER_JOINTS
+    elif joint_lock == 'lock_middle':
+        locked_joints = MIDDLE_FINGER_JOINTS
+    elif joint_lock == 'lock_ring':
+        locked_joints = RING_FINGER_JOINTS
+    elif joint_lock == 'lock_little':
+        locked_joints = LITTLE_FINGER_JOINTS
+    elif joint_lock == 'lock_thumb':
+        locked_joints = THUMB_JOINTS
+    
+    # Multiple finger locking
+    elif joint_lock == 'lock_ring_little':
+        locked_joints = RING_FINGER_JOINTS + LITTLE_FINGER_JOINTS
+    elif joint_lock == 'lock_middle_ring_little':
+        locked_joints = MIDDLE_FINGER_JOINTS + RING_FINGER_JOINTS + LITTLE_FINGER_JOINTS
+    elif joint_lock == 'lock_index_middle':
+        locked_joints = INDEX_FINGER_JOINTS + MIDDLE_FINGER_JOINTS
+    elif joint_lock == 'lock_index_middle_ring':
+        locked_joints = INDEX_FINGER_JOINTS + MIDDLE_FINGER_JOINTS + RING_FINGER_JOINTS
     
     # Return only joints that are not in the locked list
     return [j_id for j_id in actuator_list if j_id not in locked_joints]

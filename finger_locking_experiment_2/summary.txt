@@ -1,0 +1,11 @@
+=== Grasping Results Summary ===
+none                           329/20500 successful grasps (1.6%)
+lock_index                     292/20500 successful grasps (1.4%)
+lock_middle                    281/20500 successful grasps (1.4%)
+lock_ring                      373/20500 successful grasps (1.8%)
+lock_little                    163/20500 successful grasps (0.8%)
+lock_thumb                     5/20500 successful grasps (0.0%)
+lock_ring_little               19/20500 successful grasps (0.1%)
+lock_middle_ring_little        223/20500 successful grasps (1.1%)
+lock_index_middle              290/20500 successful grasps (1.4%)
+lock_index_middle_ring         1702/20500 successful grasps (8.3%)

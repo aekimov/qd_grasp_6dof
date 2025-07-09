@@ -120,7 +120,24 @@ def parse_input_args():
     parser.add_argument("-jl", "--joint_lock",
                         type=arg_clean_str,
                         default="none",
-                        choices=["none", "lock_distal_only", "lock_middle_only", "lock_proximal_only"],
+                        choices=[
+                            "none",
+                            # Joint level locking
+                            "lock_distal_only", 
+                            "lock_middle_only", 
+                            "lock_proximal_only",
+                            # Single finger locking
+                            "lock_index",
+                            "lock_middle",
+                            "lock_ring",
+                            "lock_little",
+                            "lock_thumb",
+                            # Multiple finger locking
+                            "lock_ring_little",
+                            "lock_middle_ring_little",
+                            "lock_index_middle",
+                            "lock_index_middle_ring"
+                        ],
                         help="Select which finger joints to lock. \
                               lock_distal_only locks J3 (fingertips) of every digit; \
                               lock_middle_only locks J2; \

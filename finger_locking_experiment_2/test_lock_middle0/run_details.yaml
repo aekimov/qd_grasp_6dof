@@ -1,0 +1,10 @@
+Evaluation function: evaluate_grasp_ind_routine
+Genotype length (genotype_len): 7
+Algorithm variant (qd_method): ME_SCS_CONTACT_CPF
+Population size (pop_size): 500
+Max number of individuals in the archive (archive_limit_size): 100000
+Archive removal strategy when max size is reached (archive_limit_strat): RANDOM
+Mutation flag (mut_strat): GAUSS
+Number of generated offspring per generation (nb_offsprings_to_generate): 500
+Novelty required flag (is_novelty_required): false
+Targeted object: ycb_tennis_ball
